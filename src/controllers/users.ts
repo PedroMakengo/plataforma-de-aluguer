@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { prisma } from '..'
 
+// USERS
 export const listAllUsers = async (request: Request, response: Response) => {
   const users = await prisma.user.findMany({
     skip: Number(request.query.skip) || 0,
@@ -59,6 +60,7 @@ export const getUserById = async (request: Request, response: Response) => {
   response.status(200).json({ success: true, status: 200, object: user })
 }
 
+// ADDRESS
 export const createAddress = async (request: Request, response: Response) => {
   const { id } = request.params
 
