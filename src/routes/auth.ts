@@ -1,10 +1,14 @@
 import { Router } from 'express'
 import { login, me, signup } from '../controllers/auth'
+import authMiddleware from '../middleware/auth'
+import { errorHandler } from '../error-handle'
 
 const authRoutes: Router = Router()
 
-authRoutes.post('/signup', signup)
-authRoutes.post('/login', login)
-authRoutes.get('/me', [], me)
+authRoutes.post('/signup', errorHandler(signup))
+authRoutes.post('/login', errorHandler(login))
+authRoutes.get('/me', [authMiddleware], errorHandler(me))
 
 export default authRoutes
+
+// makengo#07
