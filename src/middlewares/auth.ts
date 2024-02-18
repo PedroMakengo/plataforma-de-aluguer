@@ -19,7 +19,7 @@ const authMiddleware = async (
   const token: string = request.headers.authorization as any
   //2. if token is not present, throw an of unauthorized
   if (!token) {
-    response.json({ message: 'Unauthorized', status: 401 })
+    response.status(401).json({ message: 'Unauthorized', status: 401 })
   }
   try {
     //3. if the token is present, verify that token and extract he payload
@@ -30,13 +30,13 @@ const authMiddleware = async (
     })) as any
 
     if (!user) {
-      response.json({ message: 'Unauthorized', status: 401 })
+      response.status(401).json({ message: 'Unauthorized', status: 401 })
     }
     //5. to attach the user to the current request object
     request.user = user
     next()
   } catch (error) {
-    response.json({ message: 'Unauthorized', status: 401 })
+    response.status(401).json({ message: 'Unauthorized', status: 401 })
   }
 }
 

@@ -12,6 +12,7 @@ export const signup = async (request: Request, response: Response) => {
 
   const { email, password, name } = request.body
 
+  // Verificar se existe um user
   let user = await prisma.user.findFirst({
     where: { email },
   })
