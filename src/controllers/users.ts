@@ -122,3 +122,14 @@ export const deleteUserAddress = async (
 
   response.status(200).json({ success: true, status: 200, object: address })
 }
+
+export const getUserAddressById = async (
+  request: Request,
+  response: Response
+) => {
+  const address = await prisma.address.findFirstOrThrow({
+    where: { id: Number(request.params.id) },
+  })
+
+  response.status(200).json({ success: true, status: 200, object: address })
+}

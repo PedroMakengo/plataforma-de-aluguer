@@ -10,6 +10,7 @@ import {
   updateUser,
   deleteUserAddress,
   listAllAddresses,
+  getUserAddressById,
 } from '../controllers/users'
 
 const usersRoutes = Router()
@@ -32,5 +33,10 @@ usersRoutes.delete(
 )
 
 usersRoutes.get('/address', [authMiddleware], errorHandler(listAllAddresses))
+usersRoutes.get(
+  '/:id/address',
+  [authMiddleware],
+  errorHandler(getUserAddressById)
+)
 
 export default usersRoutes
