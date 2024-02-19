@@ -128,7 +128,10 @@ export const getUserAddressById = async (
   response: Response
 ) => {
   const address = await prisma.address.findFirstOrThrow({
-    where: { id: Number(request.params.id) },
+    where: { userId: Number(request.params.id) },
+    include: {
+      user: true,
+    },
   })
 
   response.status(200).json({ success: true, status: 200, object: address })
