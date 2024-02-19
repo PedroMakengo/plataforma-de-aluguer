@@ -31,10 +31,6 @@ usersRoutes.delete(
   errorHandler(deleteUserAddress)
 )
 
-usersRoutes.get(
-  '/address',
-  [authMiddleware, adminMiddleware],
-  errorHandler(listAllAddresses)
-)
+usersRoutes.get('/address', [authMiddleware], errorHandler(listAllAddresses))
 
 export default usersRoutes

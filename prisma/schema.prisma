@@ -23,7 +23,7 @@ model User {
   password String 
   role Role @default(USER)
 
-  address Address[]
+  address Address?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -38,7 +38,8 @@ model Address {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId Int 
   user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+  
   @@map("addresses")
 }

@@ -3,15 +3,18 @@ import { prisma } from '..'
 
 // USERS
 export const listAllUsers = async (request: Request, response: Response) => {
+  const count = await prisma.user.count()
   const users = await prisma.user.findMany({
     skip: Number(request.query.skip) || 0,
-    take: Number(request.query.take),
+    take: 5,
     include: {
       address: true,
     },
   })
 
-  response.status(200).json({ object: users, status: 200, success: true })
+  response
+    .status(200)
+    .json({ object: users, count: count, status: 200, success: true })
 }
 
 export const deleteUser = async (request: Request, response: Response) => {
@@ -86,22 +89,25 @@ export const createAddress = async (request: Request, response: Response) => {
     data: dataAddress,
   })
 
-  response.status(201).json({ message: 'Address adicionado com sucesso' })
+  response.status(201).json({ success: true, status: 201, object: address })
 }
 
 export const listAllAddresses = async (
   request: Request,
   response: Response
 ) => {
+  const count = await prisma.address.count()
   const addresses = await prisma.address.findMany({
     skip: Number(request.query.skip) || 0,
-    take: Number(request.query.take),
+    take: 5,
     include: {
       user: true,
     },
   })
 
-  response.status(200).json({ success: true, status: 200, object: addresses })
+  response
+    .status(200)
+    .json({ success: true, count: count, status: 200, object: addresses })
 }
 
 export const deleteUserAddress = async (
