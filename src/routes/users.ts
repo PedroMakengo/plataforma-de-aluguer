@@ -20,6 +20,7 @@ usersRoutes.get(
   [authMiddleware, adminMiddleware],
   errorHandler(listAllUsers)
 )
+usersRoutes.get('/address', [authMiddleware], errorHandler(listAllAddresses))
 usersRoutes.get('/:id', [authMiddleware], errorHandler(getUserById))
 usersRoutes.put('/:id', [authMiddleware], errorHandler(updateUser))
 usersRoutes.delete('/:id', [authMiddleware], errorHandler(deleteUser))
@@ -32,7 +33,6 @@ usersRoutes.delete(
   errorHandler(deleteUserAddress)
 )
 
-usersRoutes.get('/address', [authMiddleware], errorHandler(listAllAddresses))
 usersRoutes.get(
   '/:id/address',
   [authMiddleware],

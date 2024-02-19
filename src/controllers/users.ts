@@ -96,6 +96,7 @@ export const listAllAddresses = async (
   request: Request,
   response: Response
 ) => {
+  // console.log('Hello World')
   const count = await prisma.address.count()
   const addresses = await prisma.address.findMany({
     skip: Number(request.query.skip) || 0,
@@ -104,7 +105,6 @@ export const listAllAddresses = async (
       user: true,
     },
   })
-
   response
     .status(200)
     .json({ success: true, count: count, status: 200, object: addresses })
