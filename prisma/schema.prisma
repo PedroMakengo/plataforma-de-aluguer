@@ -15,6 +15,11 @@ enum Role {
   USER
 }
 
+enum StatusOfOrder {
+  PENDING 
+  ACCEPTED 
+  CANCELED
+}
 
 model User {
   id Int @id @default(autoincrement())
@@ -24,6 +29,7 @@ model User {
   role Role @default(USER)
 
   address Address?
+  order Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -42,4 +48,21 @@ model Address {
   userId Int @unique
   
   @@map("addresses")
+}
+
+model Material {
+  id Int @id @default(autoincrement())
+  @@map("materials")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  userId Int 
+  user User @relation(fields: [userId], references: [id])
+  dateOfOrder DateTime
+  status StatusOfOrder @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("orders")
 }
