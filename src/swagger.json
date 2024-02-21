@@ -1,13 +1,14 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "REST API for Swagger Documentation",
+    "title": "Swagger Documentation",
+    "content": "Plataforma de Aluguer de Material",
     "version": "1.0.0"
   },
   "schemes": ["http"],
   "servers": [{ "url": "http://localhost:3000/" }],
   "paths": {
-    "/auth": {
+    "/login": {
       "post": {
         "tags": ["Auth"],
         "requestBody": {
@@ -36,7 +37,7 @@
         }
       }
     },
-    "/auth/register": {
+    "/signup": {
       "post": {
         "tags": ["Auth"],
         "requestBody": {
@@ -65,7 +66,7 @@
         }
       }
     },
-    "/auth/me": {
+    "/me": {
       "get": {
         "tags": ["Auth"],
         "requestBody": {
