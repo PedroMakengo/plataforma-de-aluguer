@@ -31,8 +31,9 @@ model User {
   address   Address?
   order     Order[]
   orderItem OrderItem[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  approvals OrderApprovals[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 
   @@map("users")
 }
@@ -69,13 +70,15 @@ model Order {
   id          Int           @id @default(autoincrement())
   userId      Int
   user        User          @relation(fields: [userId], references: [id])
-  dateOfOrder DateTime
+  dateOfOrder DateTime      @db.Date
   status      StatusOfOrder @default(PENDING)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
   material  Material[]
   orderItem OrderItem?
+  payment   Payments?
+  approvals OrderApprovals?
 
   @@map("orders")
 }
@@ -94,5 +97,32 @@ model OrderItem {
   hourEvents   String?
   localEvents  String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("orderItems")
+}
+
+model Payments {
+  id             Int           @id @default(autoincrement())
+  orderId        Int           @unique
+  order          Order         @relation(fields: [orderId], references: [id])
+  method_payment String
+  price_total    Decimal
+  dateOfPayment  DateTime      @db.Date
+  status         StatusOfOrder @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderApprovals {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  orderId         Int      @unique
+  dataOfApprovals DateTime @db.Date
+  user            User     @relation(fields: [userId], references: [id])
+  order           Order    @relation(fields: [orderId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
