@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import authMiddleware from '../middlewares/auth'
 import adminMiddleware from '../middlewares/admin'
-import { errorHandler } from '../error-handle'
 import {
   createAddress,
   deleteUser,
@@ -12,6 +11,7 @@ import {
   listAllAddresses,
   getUserAddressById,
 } from '../controllers/users'
+import { errorHandler } from '../utils/error-handle'
 
 const usersRoutes = Router()
 

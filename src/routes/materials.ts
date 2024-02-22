@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import authMiddleware from '../middlewares/auth'
-import { errorHandler } from '../error-handle'
 import {
   allMaterials,
   createMaterial,
@@ -8,6 +7,7 @@ import {
   getMaterialById,
   updateMaterial,
 } from '../controllers/material'
+import { errorHandler } from '../utils/error-handle'
 
 const materialRoutes: Router = Router()
 
