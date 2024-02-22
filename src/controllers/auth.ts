@@ -3,7 +3,7 @@ import { prisma } from '..'
 import { compareSync, hashSync } from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 
-import { JWT_SECRET } from '../secrets'
+import { JWT_SECRET } from '../utils/secrets'
 import { SignupUserSchema } from '../validators/auth'
 
 export const signup = async (request: Request, response: Response) => {

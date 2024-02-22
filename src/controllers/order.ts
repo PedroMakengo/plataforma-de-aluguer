@@ -35,19 +35,46 @@ export const changeStatusOrder = async (
   request: Request,
   response: Response
 ) => {
+  const { userId, status } = request.body
   const { id } = request.params
-  const { status } = request.body
 
-  const statusChange = await prisma.order.update({
+  const user = await prisma.user.findFirst({
+    where: { id: Number(userId) },
+  })
+
+  if (!user) {
+    response.status(404).json({
+      success: false,
+      status: 404,
+      message: 'Não existe usuário com este id',
+    })
+  }
+
+  const orderById = await prisma.order.findFirst({
     where: {
       id: Number(id),
     },
-    data: status,
   })
 
-  response
-    .status(200)
-    .json({ success: true, status: 200, object: statusChange })
+  if (!orderById) {
+    response.status(404).json({
+      success: false,
+      status: 404,
+      message: 'Order com este id',
+    })
+  }
+
+  const newStatus = await prisma.order.update({
+    where: {
+      userId: Number(user?.id),
+      id: Number(id),
+    },
+    data: {
+      status: status,
+    },
+  })
+
+  response.status(200).json({ success: true, status: 200, object: newStatus })
 }
 
 export const allOrders = async (request: Request, response: Response) => {
