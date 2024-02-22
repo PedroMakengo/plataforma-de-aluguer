@@ -24,6 +24,7 @@ export const createOrderApprovals = async (
   const order = await prisma.order.findFirst({
     where: {
       id: Number(orderId),
+      userId: Number(user?.id),
     },
   })
 
