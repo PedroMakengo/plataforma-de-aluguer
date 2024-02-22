@@ -8,9 +8,11 @@ import {
   updateOrderItem,
 } from '../controllers/ordersItem'
 
-export const ordersItemRoutes: Router = Router()
+const ordersItemRoutes: Router = Router()
 
 ordersItemRoutes.get('/', [authMiddleware], errorHandler(allOrdersItem))
 ordersItemRoutes.get('/:id', [authMiddleware], errorHandler(showOrderItem))
 ordersItemRoutes.delete('/:id', [authMiddleware], errorHandler(deleteOrderItem))
 ordersItemRoutes.put('/:id', [authMiddleware], errorHandler(updateOrderItem))
+
+export default ordersItemRoutes

@@ -114,6 +114,9 @@ model Payments {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+
+  @@map("payments")
 }
 
 model OrderApprovals {
@@ -125,4 +128,6 @@ model OrderApprovals {
   order           Order    @relation(fields: [orderId], references: [id])
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@map("orderapprovals")  
 }
